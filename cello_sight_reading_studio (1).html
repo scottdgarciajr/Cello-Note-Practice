@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Arco — Cello Sight-Reading Studio</title>
+<style>
+:root{--ink:#17332f;--ink-soft:#50655d;--forest:#214e42;--forest-dark:#143a31;--cream:#f8f6ef;--paper:#fffdf8;--line:#e5e7dd;--yellow:#ebc56a;--coral:#de8f7e;--sky:#93bdd0;--mint:#a0bda5;--good:#24795e;--bad:#b65b45;--shadow:0 16px 45px rgba(30,55,46,.075)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}button{font:inherit}button:focus-visible{outline:3px solid #ddae4b;outline-offset:4px}svg{display:block}.app{max-width:1240px;margin:0 auto;padding:0 40px 46px}
+.site-header{height:88px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #dedfd6}.logo{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}.logo-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--forest);color:#fff5de;font-family:Georgia,serif;font-size:27px;line-height:1}.logo-name{font-family:Georgia,"Times New Roman",serif;font-size:27px;font-weight:700;letter-spacing:-1.1px}.logo-separator{width:1px;height:20px;background:#d8dcd1;margin:0 3px}.logo-caption{font-size:11px;letter-spacing:.16em;font-weight:800;color:#6c7d73;text-transform:uppercase}.header-right{display:flex;align-items:center;gap:19px}.header-note{display:flex;align-items:center;gap:7px;color:#6b786d;font-size:12px}.header-note:before{content:"";height:7px;width:7px;border-radius:50%;background:#82a996}.text-button{border:0;background:none;cursor:pointer;color:var(--forest);font-size:13px;font-weight:750;text-decoration:underline;text-underline-offset:4px}
+.hero{display:flex;align-items:end;justify-content:space-between;gap:24px;padding:38px 0 27px}.eyebrow{font-size:11px;letter-spacing:.23em;font-weight:850;color:#648273;text-transform:uppercase;margin-bottom:10px}.hero h1{font:normal clamp(32px,4.3vw,54px)/1.13 Georgia,"Times New Roman",serif;letter-spacing:-1.8px;margin:0}.hero h1 em{font-style:italic;color:#758f7e}.hero p{margin:12px 0 0;font-size:14px;line-height:1.6;color:#64756b}.hero-tag{flex-shrink:0;display:flex;gap:9px;align-items:center;border:1px solid #d7e0d6;border-radius:99px;padding:10px 15px;color:#507464;font-weight:700;font-size:12px;background:#eff3ec;margin-bottom:3px}.hero-tag svg{width:16px;height:16px}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 16px;background:#fffef9;border:1px solid var(--line);border-radius:16px;margin-bottom:20px;box-shadow:0 3px 14px rgba(44,57,37,.025)}.toolbar-left{display:flex;align-items:center;gap:15px;min-width:0}.toolbar-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.11em;color:#849187;white-space:nowrap}.modes{display:flex;gap:5px;padding:4px;background:#f0f2eb;border-radius:10px}.mode{background:none;border:0;color:#6b786d;font-size:12px;font-weight:750;padding:10px 12px;border-radius:8px;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s,box-shadow .15s}.mode:hover{color:var(--forest)}.mode.active{background:white;color:var(--forest);box-shadow:0 2px 8px rgba(35,57,44,.1)}.toolbar-right{display:flex;gap:15px;align-items:center}.switch-setting{display:flex;align-items:center;gap:9px;cursor:pointer;font-size:12px;font-weight:700;color:#66766d;white-space:nowrap;user-select:none}.switch-setting input{position:absolute;opacity:0;width:1px;height:1px}.switch-track{width:32px;height:20px;border-radius:99px;background:#d9e0d7;display:flex;align-items:center;padding:3px;transition:background .2s}.switch-track:before{content:"";height:14px;width:14px;background:white;border-radius:50%;box-shadow:0 1px 3px #0002;transition:transform .2s}.switch-setting input:checked+.switch-track{background:#376f5b}.switch-setting input:checked+.switch-track:before{transform:translateX(12px)}.switch-setting input:focus-visible+.switch-track{outline:3px solid #ddae4b;outline-offset:3px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:19px}.stat{background:#fffefb;border:1px solid var(--line);border-radius:15px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}.stat-label{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#7a887d}.stat-value{font-size:22px;font-weight:800;letter-spacing:-.8px;color:var(--forest)}.stat-glyph{opacity:.75}
+.main-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(410px,.9fr);gap:20px;align-items:start}.main-grid>.panel:first-child{position:sticky;top:16px}.panel{border:1px solid #e3e6dc;background:#fffefb;border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}.panel-head{padding:25px 27px 0;display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.step{display:flex;align-items:center;gap:9px;font-size:10px;font-weight:850;letter-spacing:.18em;text-transform:uppercase;color:#759181}.step-num{display:inline-grid;place-items:center;width:24px;height:24px;border:1px solid #c9dacf;border-radius:50%;font-size:10px;color:#406957}.panel h2{font:normal 25px/1.25 Georgia,"Times New Roman",serif;letter-spacing:-.4px;margin:13px 0 0}.note-count{font-size:11px;font-weight:700;color:#839185;border-radius:99px;background:#f3f5ef;padding:7px 11px;white-space:nowrap;margin-top:3px}
+.left-content{padding:0 27px 28px}.music-sheet{background:#f9f8f2;border:1px solid #edece2;border-radius:15px;margin:24px 0 14px;position:relative;overflow:hidden}.sheet-topline{display:flex;justify-content:space-between;align-items:center;padding:16px 17px 0;color:#89938b;font-size:10px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}.music-svg{width:100%;height:auto;aspect-ratio:560/290}.sheet-footer{display:flex;align-items:center;justify-content:center;color:#879388;font-size:11px;padding:0 10px 17px;font-weight:700;letter-spacing:.025em}.progress-section{margin:20px 0 0}.progress-label{display:flex;align-items:center;justify-content:space-between;color:#718277;font-size:11px;font-weight:750;margin-bottom:8px}.progress-bar{height:7px;background:#e8ede4;border-radius:100px;overflow:hidden}.progress-fill{height:100%;width:0%;background:#78a18c;border-radius:100px;transition:width .35s}
+.feedback{min-height:116px;border:1px solid #e5e9df;background:#f3f6f1;border-radius:15px;margin-top:22px;padding:18px;display:flex;align-items:flex-start;gap:14px;transition:background .2s,border-color .2s}.feedback-icon{flex:none;width:34px;height:34px;display:grid;place-items:center;border-radius:11px;background:#e0e9df;color:#46745d;font-size:19px;font-weight:850}.feedback strong{display:block;font-size:15px;margin:0 0 4px}.feedback p{margin:0;font-size:12px;line-height:1.6;color:#6d7d70}.feedback.correct{background:#eef7ef;border-color:#d0e7d4}.feedback.correct .feedback-icon{background:#d5eedd;color:#277454}.feedback.wrong{background:#fff5ee;border-color:#f3dfd0}.feedback.wrong .feedback-icon{background:#f8e0d4;color:#b65b45}.feedback-line{display:flex;justify-content:space-between;gap:10px;align-items:center}.skip{display:none;border:0;background:transparent;color:#24745b;font-weight:800;font-size:11px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0}.feedback.answered .skip{display:block}.help-divider{height:1px;background:#eceee6;margin:25px 0 0}.help-toggle{border:0;background:none;display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left;padding:18px 0 0;font-size:12px;font-weight:800;color:#456c58;cursor:pointer}.help-toggle svg{transition:transform .2s}.help-toggle[aria-expanded=true] svg{transform:rotate(180deg)}.help-content{padding:15px 0 0;display:none}.help-content.open{display:block}.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.guide-box{background:#f5f6f0;border:1px solid #e6eae1;padding:13px;border-radius:10px}.guide-box small{display:block;text-transform:uppercase;letter-spacing:.10em;color:#849187;font-size:9px;font-weight:850;margin-bottom:6px}.guide-box strong{font-size:18px;letter-spacing:2px;font-family:Georgia,serif}.guide-box p{font-size:11px;line-height:1.5;color:#728174;margin:7px 0 0}.guide-tip{font-size:11px;color:#708073;line-height:1.6;padding:14px 2px 0}
+.right-panel .panel-head{padding-bottom:0}.right-inner{display:flex;justify-content:center;padding:0 8px}.cello-stage{position:relative;width:min(100%,420px);aspect-ratio:420/620;max-height:650px}.cello-svg{width:100%;height:100%;overflow:visible}.finger-spot{position:absolute;width:8.8%;aspect-ratio:1;border:1.5px solid rgba(255,247,219,.64);background:rgba(14,28,25,.26);border-radius:100px;transform:translate(-50%,-50%);display:grid;place-items:center;color:#f6f2dd;font-size:12px;font-weight:800;cursor:pointer;transition:background .14s,transform .14s,border-color .14s,box-shadow .14s,opacity .14s;box-shadow:0 2px 9px rgba(12,20,14,.14);z-index:5;touch-action:manipulation;padding:0}.finger-spot:hover:not(:disabled),.finger-spot:focus-visible{background:#f7edce;color:#173c33;border-color:#f7edce;transform:translate(-50%,-50%) scale(1.14)}.finger-spot:disabled{cursor:default}.finger-spot.unavailable{opacity:.23;pointer-events:none}.finger-spot.correct-answer{border:2px solid #fcf6c8;background:#2d986f;color:white;transform:translate(-50%,-50%) scale(1.20);box-shadow:0 0 0 6px #3aa77d4d,0 0 20px #96e8b1;z-index:8}.finger-spot.wrong-answer{border:2px solid #ffe7dc;background:#bd563f;color:white;transform:translate(-50%,-50%) scale(1.13);box-shadow:0 0 0 5px #e2837040;z-index:7}.finger-spot.dim-answered:not(.correct-answer):not(.wrong-answer){opacity:.36}.finger-spot:disabled:not(.unavailable){pointer-events:none}.finger-spot.open-spot{font-size:10px;background:rgba(246,242,216,.19)}.instrument-footer{border-top:1px solid #eceee5;background:#fafbf5;padding:17px 22px 19px}.instrument-footer-top{display:flex;align-items:center;justify-content:center;gap:9px;font-size:11px;color:#65786a;line-height:1.45;text-align:center}.tapes{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:15px;margin-top:12px}.tape{display:flex;align-items:center;gap:6px;color:#708174;font-size:10px;font-weight:700}.tape-dot{display:block;width:9px;height:9px;border-radius:2px}.tape:nth-child(1) .tape-dot{background:var(--yellow)}.tape:nth-child(2) .tape-dot{background:var(--coral)}.tape:nth-child(3) .tape-dot{background:var(--sky)}.tape:nth-child(4) .tape-dot{background:var(--mint)}.note-tooltip{position:absolute;left:0;top:0;transform:translate(-50%,-145%);pointer-events:none;background:#17332f;color:#fffdf4;border-radius:10px;padding:7px 10px;font-size:11px;font-weight:800;letter-spacing:.02em;white-space:nowrap;box-shadow:0 8px 18px rgba(14,28,25,.22);opacity:0;transition:opacity .12s,transform .12s;z-index:20}.note-tooltip.visible{opacity:1}.note-tooltip:after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);border-width:6px 6px 0 6px;border-style:solid;border-color:#17332f transparent transparent transparent}
+.footer{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:25px 2px 0;font-size:11px;color:#92a097}.footer strong{color:#678071}.reset-btn{background:none;border:0;cursor:pointer;color:#7d9183;font-weight:700;font-size:11px}.reset-btn:hover{text-decoration:underline}.music-accidental{font-family:Georgia,"Noto Music",serif;font-size:39px;fill:#23382f}.note-svg-shape{transition:transform .14s}.flash-note{animation:reveal .35s ease}@keyframes reveal{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.dialog-backdrop{position:fixed;inset:0;background:rgba(17,40,33,.38);z-index:30;display:none;align-items:center;justify-content:center;padding:25px}.dialog-backdrop.open{display:flex}.modal{background:#fffefa;border-radius:19px;padding:29px;box-shadow:0 22px 80px #0019;max-width:480px;width:100%;position:relative}.modal h3{font:normal 31px Georgia,serif;margin:0 0 8px}.modal p{font-size:14px;line-height:1.75;color:#66766c}.modal ul{margin:14px 0 20px;padding-left:22px;font-size:13px;line-height:1.9;color:#63756b}.modal .modal-button{background:var(--forest);border:0;color:white;border-radius:10px;font-size:13px;font-weight:750;padding:13px 20px;cursor:pointer}.close-modal{position:absolute;top:15px;right:16px;border:0;background:#f2f3eb;width:31px;height:31px;border-radius:50%;cursor:pointer;color:#466354;font-size:21px}
+@media (max-width:1060px){.app{padding:0 24px 30px}.main-grid{grid-template-columns:minmax(0,1fr) minmax(355px,.88fr);gap:15px}.toolbar{align-items:flex-start}.toolbar-left{flex-wrap:wrap;gap:9px}.toolbar-label{width:100%}.mode{font-size:11px;padding:9px 9px}.panel-head{padding:20px 20px 0}.left-content{padding:0 20px 22px}.music-sheet{margin-top:18px}}
+@media (max-width:770px){.site-header{height:72px}.logo-caption,.logo-separator,.header-note{display:none}.hero{padding:26px 0 21px;display:block}.hero-tag{display:inline-flex;margin-top:18px}.hero h1{font-size:39px}.toolbar{flex-direction:column;align-items:stretch}.toolbar-left{display:block}.toolbar-label{display:block;margin-bottom:8px}.modes{width:100%;justify-content:space-between}.mode{flex:1}.toolbar-right{justify-content:flex-start;padding:1px 2px}.stats{gap:7px}.stat{padding:10px 13px}.stat-label{font-size:10px}.stat-value{font-size:19px}.main-grid{grid-template-columns:1fr}.main-grid>.panel:first-child{position:static}.panel-head{padding:24px 25px 0}.left-content{padding:0 25px 25px}.right-inner{padding:0 10px}.cello-stage{max-width:420px}.footer{flex-direction:column;align-items:flex-start}}
+@media (max-width:440px){.app{padding:0 13px 24px}.hero h1{font-size:36px}.hero p{font-size:13px}.header-right{gap:8px}.logo-name{font-size:24px}.mode{font-size:10px;padding:10px 7px}.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.stat{display:block;text-align:center;padding:12px 3px}.stat-label{justify-content:center;margin-bottom:5px}.stat-value{font-size:21px}.panel-head{padding:18px 17px 0}.panel h2{font-size:23px}.left-content{padding:0 17px 20px}.music-sheet{margin:16px 0 8px}.music-svg{aspect-ratio:560/315}.sheet-topline{font-size:9px}.guide-grid{grid-template-columns:1fr 1fr}.feedback{padding:14px;gap:11px}.feedback strong{font-size:13px}.feedback p{font-size:11px}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="site-header">
+  <a class="logo" href="#top" aria-label="Arco, back to top"><span class="logo-mark">𝄢</span><span class="logo-name">arco<span style="color:#c5a06d">.</span></span><span class="logo-separator"></span><span class="logo-caption">Cello note lab</span></a>
+  <div class="header-right"><span class="header-note">Made for first-position learners</span><button class="text-button" id="howBtn" type="button">How to play ↗</button></div>
+</header>
+<section class="hero" id="top">
+  <div><div class="eyebrow">Your daily sight-reading practice</div><h1>See the note. <em>Find your place.</em></h1><p>Read a note in bass clef, then tap exactly where you’d play it on the cello.</p></div>
+  <div class="hero-tag"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 12h16M10 8l-6 4 6 4M14 8l6 4-6 4"/></svg> No timer. Just progress.</div>
+</section>
+<section class="toolbar" aria-label="Practice options">
+ <div class="toolbar-left"><span class="toolbar-label">Practice mode</span><div class="modes" role="group" aria-label="Difficulty"><button type="button" class="mode active" data-mode="starter" aria-pressed="true">D + A · Starter</button><button type="button" class="mode" data-mode="all" aria-pressed="false">All four strings</button><button type="button" class="mode" data-mode="chromatic" aria-pressed="false">♯ / ♭ Challenge</button></div></div>
+ <div class="toolbar-right"><label class="switch-setting"><input id="audioToggle" type="checkbox"><span class="switch-track"></span> Play answer sound</label></div>
+</section>
+<section class="stats" aria-label="Your progress">
+  <div class="stat"><span class="stat-label"><span class="stat-glyph">◉</span> Accuracy</span><strong class="stat-value" id="accuracy">—</strong></div>
+  <div class="stat"><span class="stat-label"><span class="stat-glyph">✦</span> Current streak</span><strong class="stat-value" id="streak">0</strong></div>
+  <div class="stat"><span class="stat-label"><span class="stat-glyph">♫</span> Notes practiced</span><strong class="stat-value" id="practiced">0</strong></div>
+</section>
+<section class="main-grid">
+ <article class="panel" aria-label="Sheet music question">
+  <div class="panel-head"><div><div class="step"><span class="step-num">01</span> Read the score</div><h2>What note is this?</h2></div><div class="note-count" id="questionNumber">NOTE 01</div></div>
+  <div class="left-content">
+   <div class="music-sheet">
+    <div class="sheet-topline"><span>Bass clef</span><span>One note at a time</span></div>
+    <svg id="staff" class="music-svg" viewBox="0 0 560 290" role="img" aria-label="A single music note on a bass clef staff" xmlns="http://www.w3.org/2000/svg">
+     <rect x="0" y="0" width="560" height="290" fill="transparent"/>
+     <g stroke="#34443a" stroke-width="1.65" opacity=".74">
+       <line x1="67" y1="76" x2="491" y2="76"/><line x1="67" y1="100" x2="491" y2="100"/><line x1="67" y1="124" x2="491" y2="124"/><line x1="67" y1="148" x2="491" y2="148"/><line x1="67" y1="172" x2="491" y2="172"/>
+     </g>
+     <g aria-hidden="true" transform="translate(66 177.3) scale(.12 -.12)" fill="#283d33"><path d="M50 123Q216 231 288 301Q336 348 373.0 408.5Q410 469 431.5 536.0Q453 603 453 669Q453 728 435.0 773.5Q417 819 383.0 845.0Q349 871 302 871Q284 871 264.5 867.0Q245 863 224 855Q181 839 158.0 813.5Q135 788 135 765Q135 756 143.0 752.0Q151 748 158 748Q168 748 183 752Q190 754 196.5 755.0Q203 756 210 756Q248 756 272.0 733.5Q296 711 296 674Q296 638 266.0 612.0Q236 586 195 586Q146 586 111.0 617.0Q76 648 76 697Q76 756 109.0 802.0Q142 848 198.5 874.0Q255 900 324 900Q400 900 460.0 867.0Q520 834 555.5 776.5Q591 719 591 646Q591 551 538 464Q511 419 476.5 379.0Q442 339 389.0 297.5Q336 256 256.0 208.0Q176 160 57 101ZM687 809Q710 809 726.0 793.0Q742 777 742 754Q742 731 726.0 715.5Q710 700 687 700Q664 700 648.0 715.5Q632 731 632 754Q632 777 648.0 793.0Q664 809 687 809ZM687 589Q710 589 726.0 573.0Q742 557 742 534Q742 511 726.0 495.5Q710 480 687 480Q664 480 648.0 495.5Q632 511 632 534Q632 557 648.0 573.0Q664 589 687 589Z"/></g>
+     <g id="renderedNote"></g>
+    </svg>
+    <div class="sheet-footer">Read the pitch first — then find the string and finger.</div>
+   </div>
+   <div class="progress-section"><div class="progress-label"><span id="roundLabel">Your first 10 notes</span><span id="roundFraction">0 / 10</span></div><div class="progress-bar"><div class="progress-fill" id="roundFill"></div></div></div>
+   <div class="feedback" id="feedback" role="status" aria-live="polite"><div class="feedback-icon" id="feedbackIcon">↗</div><div style="flex:1;min-width:0"><div class="feedback-line"><strong id="feedbackTitle">Your turn.</strong><button type="button" id="nextButton" class="skip">Next note →</button></div><p id="feedbackText">Tap a string at the open position (0), or where it crosses a numbered finger tape.</p></div></div>
+   <div class="help-divider"></div>
+   <button type="button" class="help-toggle" id="helpToggle" aria-expanded="false" aria-controls="helpContent"><span>↗ &nbsp; Need a refresher? See the bass-clef cheat sheet</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+   <div class="help-content" id="helpContent"><div class="guide-grid"><div class="guide-box"><small>Staff lines · bottom to top</small><strong>G B D F A</strong><p>Good Boys Do Fine Always</p></div><div class="guide-box"><small>Spaces · bottom to top</small><strong>A C E G</strong><p>All Cows Eat Grass</p></div></div><div class="guide-tip"><strong>Cello open strings:</strong> C2, G2, D3, A3 (low to high). The bottom staff line is G2. A line or space up is one letter-name step. A note on a ledger line above the staff is middle C (C4).</div></div>
+  </div>
+ </article>
+ <article class="panel right-panel" aria-label="Interactive cello fingerboard">
+  <div class="panel-head"><div><div class="step"><span class="step-num">02</span> Find it on the cello</div><h2>Tap the right position.</h2></div><div class="note-count">FIRST POSITION</div></div>
+  <div class="right-inner"><div class="cello-stage" id="celloStage">
+   <svg class="cello-svg" viewBox="0 0 420 620" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+     <linearGradient id="wood" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#8a4b2d"/><stop offset=".19" stop-color="#c58249"/><stop offset=".48" stop-color="#e5ac6e"/><stop offset=".81" stop-color="#a86640"/><stop offset="1" stop-color="#75402c"/></linearGradient>
+     <linearGradient id="fingerwood" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#18221f"/><stop offset=".24" stop-color="#2b3a32"/><stop offset=".47" stop-color="#29332d"/><stop offset=".77" stop-color="#1e2a27"/><stop offset="1" stop-color="#0c1917"/></linearGradient>
+     <linearGradient id="stringlight" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#f9e3ae"/><stop offset=".45" stop-color="#a7b2a6"/><stop offset="1" stop-color="#f9e8d0"/></linearGradient>
+     <linearGradient id="tapeShine" x1="0" y1="0" x2="1" y2="0"><stop stop-color="white" stop-opacity=".04"/><stop offset=".4" stop-color="white" stop-opacity=".27"/><stop offset="1" stop-color="white" stop-opacity=".03"/></linearGradient>
+     <clipPath id="boardClip"><path d="M122 161 Q210 148 298 161 L344 567 Q210 580 76 567 Z"/></clipPath>
+     <filter id="softshadow" x="-25%" y="-25%" width="150%" height="160%"><feDropShadow dx="1" dy="8" stdDeviation="10" flood-color="#312119" flood-opacity=".18"/></filter>
+    </defs>
+    <ellipse cx="210" cy="350" rx="154" ry="258" fill="#f4f3ec"/>
+    <path d="M183 93 Q210 80 237 93 L251 208 L270 578 Q212 591 151 578 L169 208Z" fill="url(#wood)" filter="url(#softshadow)"/>
+    <path d="M180 85 Q162 83 158 64 L184 51 Q184 23 207 18 C234 11 257 28 252 47 Q249 62 239 69 L240 96Z" fill="url(#wood)" stroke="#73452e" stroke-width="2"/>
+    <path d="M198 49 C197 28 229 22 239 39 C250 60 219 78 203 60 C196 53 205 41 217 42 C228 43 228 55 218 56 C210 56 210 50 214 49" fill="none" stroke="#6d3827" stroke-width="5" stroke-linecap="round"/>
+    <path d="M195 48 C196 32 225 27 234 40" fill="none" stroke="#f0ba82" stroke-width="3" stroke-linecap="round" opacity=".72"/>
+    <path d="M182 103 L151 93 L137 94 L137 111 L151 110 L180 118" fill="#7f4a31" stroke="#643a29" stroke-width="1.5"/>
+    <path d="M237 117 L267 105 L282 105 L282 122 L267 123 L238 135" fill="#7f4a31" stroke="#643a29" stroke-width="1.5"/>
+    <path d="M177 134 L145 125 L129 125 L129 142 L145 141 L177 150" fill="#804a2c" stroke="#643a29" stroke-width="1.5"/>
+    <path d="M242 92 L272 80 L289 80 L289 97 L272 99 L241 109" fill="#804a2c" stroke="#643a29" stroke-width="1.5"/>
+    <ellipse cx="144" cy="101" rx="11" ry="12" fill="#382721"/><ellipse cx="275" cy="113" rx="11" ry="12" fill="#382721"/><ellipse cx="138" cy="134" rx="11" ry="12" fill="#382721"/><ellipse cx="282" cy="88" rx="11" ry="12" fill="#382721"/>
+    <path d="M122 161 Q210 148 298 161 L344 567 Q210 580 76 567 Z" fill="url(#fingerwood)" stroke="#14201a" stroke-width="2.5" filter="url(#softshadow)"/>
+    <g clip-path="url(#boardClip)">
+      <path d="M145 159 L99 570" stroke="#a7a391" stroke-width="1.5" opacity=".1"/><path d="M176 159 L154 575" stroke="#adad96" stroke-width="1" opacity=".08"/><path d="M244 159 L268 575" stroke="#adad96" stroke-width="1" opacity=".10"/><path d="M283 159 L322 570" stroke="#adad96" stroke-width="1" opacity=".13"/>
+      <rect x="65" y="271" width="295" height="13" rx="3" fill="#ebc56a" opacity=".89"/><rect x="65" y="345" width="295" height="13" rx="3" fill="#de8f7e" opacity=".88"/><rect x="65" y="415" width="295" height="13" rx="3" fill="#93bdd0" opacity=".89"/><rect x="65" y="485" width="295" height="13" rx="3" fill="#a0bda5" opacity=".91"/>
+      <rect x="65" y="271" width="295" height="13" fill="url(#tapeShine)"/><rect x="65" y="345" width="295" height="13" fill="url(#tapeShine)"/><rect x="65" y="415" width="295" height="13" fill="url(#tapeShine)"/><rect x="65" y="485" width="295" height="13" fill="url(#tapeShine)"/>
+      <line x1="147" y1="164" x2="107" y2="575" stroke="url(#stringlight)" stroke-width="2.9"/><line x1="188" y1="164" x2="174" y2="575" stroke="url(#stringlight)" stroke-width="2.5"/><line x1="232" y1="164" x2="246" y2="575" stroke="url(#stringlight)" stroke-width="2.1"/><line x1="275" y1="164" x2="313" y2="575" stroke="url(#stringlight)" stroke-width="1.7"/>
+    </g>
+    <path d="M122 161 Q210 152 298 161" fill="none" stroke="#f3dfb1" stroke-width="8" stroke-linecap="round"/>
+    <path d="M122 159 Q210 150 298 159" fill="none" stroke="#94775d" stroke-width="1.3" opacity=".7"/>
+    <g font-family="Inter,Arial,sans-serif" font-size="12" font-weight="800" fill="#526e5e" text-anchor="middle"><text x="48" y="210" font-size="10" letter-spacing="1.3">OPEN</text><text x="48" y="282">1</text><text x="48" y="356">2</text><text x="48" y="426">3</text><text x="48" y="496">4</text></g>
+    <g stroke="#bbc8b8" stroke-width="1" opacity=".65"><line x1="59" y1="278" x2="75" y2="278"/><line x1="59" y1="352" x2="80" y2="352"/><line x1="59" y1="422" x2="85" y2="422"/><line x1="59" y1="492" x2="94" y2="492"/></g>
+    <g font-family="Inter,Arial,sans-serif" font-size="11" font-weight="850" text-anchor="middle" fill="#476355"><text x="107" y="605">C</text><text x="174" y="605">G</text><text x="246" y="605">D</text><text x="313" y="605">A</text></g>
+    <text x="372" y="605" font-family="Inter,Arial,sans-serif" font-size="10" fill="#819184" text-anchor="middle">STRINGS</text>
+   </svg>
+   <div id="fingerButtons"></div>
+   <div class="note-tooltip" id="hoverNote" aria-hidden="true"></div>
+  </div></div>
+  <div class="instrument-footer"><div class="instrument-footer-top">↑ Touch a string at <strong>0 (open)</strong> or where it meets a <strong>finger tape.</strong></div><div class="tapes" aria-label="Tape labels"><span class="tape"><i class="tape-dot"></i> 1st finger</span><span class="tape"><i class="tape-dot"></i> 2nd finger</span><span class="tape"><i class="tape-dot"></i> 3rd finger</span><span class="tape"><i class="tape-dot"></i> 4th finger</span></div></div>
+ </article>
+</section>
+<footer class="footer"><span>Arco teaches <strong>bass-clef note recognition and standard first-position fingerings</strong>. The illustrated finger tapes are a learning guide, not a precise setup template.</span><button class="reset-btn" id="resetButton" type="button">↺ Reset score</button></footer>
+</main>
+<div class="dialog-backdrop" id="modalBackdrop" role="presentation"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button type="button" class="close-modal" id="closeModal" aria-label="Close">×</button><div class="eyebrow">Welcome to Arco</div><h3 id="modalTitle">Your cello, from the page to your fingers.</h3><p>This trainer tests whether you can turn a written bass-clef note into the place you would play it on your cello.</p><ul><li>Read the black note on the five-line staff.</li><li>Pick a string and tap <strong>0</strong> for open, or <strong>1–4</strong> on a colored finger tape.</li><li>Correct answers glow green. If you miss, the correct spot lights up and the answer appears.</li><li>The next note appears automatically. You can also tap <strong>Next note</strong> to go faster.</li><li>Start with <strong>D + A</strong>, then graduate to all four strings and sharps/flats.</li></ul><button class="modal-button" id="gotIt" type="button">Start practicing →</button></section></div>
+<script>
+(() => {
+'use strict';
+// Standard first position: 0=open, 1=whole tone, 2=minor third,
+// 3=major third, 4=perfect fourth above each open string.
+const STRINGS = [
+  {string:'C',open:36,positions:[['C',2,'',0],['D',2,'',1],['E',2,'♭',2],['E',2,'',3],['F',2,'',4]]},
+  {string:'G',open:43,positions:[['G',2,'',0],['A',2,'',1],['B',2,'♭',2],['B',2,'',3],['C',3,'',4]]},
+  {string:'D',open:50,positions:[['D',3,'',0],['E',3,'',1],['F',3,'',2],['F',3,'♯',3],['G',3,'',4]]},
+  {string:'A',open:57,positions:[['A',3,'',0],['B',3,'',1],['C',4,'',2],['C',4,'♯',3],['D',4,'',4]]}
+];
+const STEP_OFFSETS=[0,2,3,4,5];
+const ROW_Y=[205,278,352,422,492];
+const LAST_LETTERS=['C','D','E','F','G','A','B'];
+const $=(id)=>document.getElementById(id);
+const spots=[];
+let mode='starter', current=null, attempts=0, wins=0, streak=0, bestStreak=0, answered=false, timeout=null, lastMidi=[], questionCount=0, missedQueue=[];
+let audioContext=null;
+function positionData(stringName,finger){
+  const stringInfo=STRINGS.find(s=>s.string===stringName);
+  return stringInfo ? stringInfo.positions[finger] : null;
+}
+function noteDisplay(stringName,finger){
+  const data=positionData(stringName,finger);
+  return data ? `${data[0]}${data[2]}${data[1]}` : '';
+}
+function hoverLabel(stringName,finger){
+  return `${noteDisplay(stringName,finger)} • ${stringName} string • ${finger===0?'open':ordinal(finger)+' finger'}`;
+}
+function showHoverNote(button){
+  const tooltip=$('hoverNote');
+  if(!tooltip) return;
+  tooltip.textContent=button.dataset.noteLabel || '';
+  tooltip.classList.add('visible');
+  placeHoverNote(button);
+}
+function placeHoverNote(button){
+  const tooltip=$('hoverNote');
+  const stage=$('celloStage');
+  if(!tooltip || !stage) return;
+  const buttonRect=button.getBoundingClientRect();
+  const stageRect=stage.getBoundingClientRect();
+  tooltip.style.left=(buttonRect.left-stageRect.left+buttonRect.width/2)+'px';
+  tooltip.style.top=(buttonRect.top-stageRect.top)+'px';
+}
+function hideHoverNote(){
+  const tooltip=$('hoverNote');
+  if(tooltip) tooltip.classList.remove('visible');
+}
+function makePositions(){
+  const container=$('fingerButtons');container.innerHTML='';spots.length=0;
+  STRINGS.forEach((s,col)=>{
+    ROW_Y.forEach((y,finger)=>{
+      const fraction=(y-164)/(575-164);
+      const xsTop=[147,188,232,275],xsBottom=[107,174,246,313];
+      const x=xsTop[col]+(xsBottom[col]-xsTop[col])*fraction;
+      const b=document.createElement('button');
+      const noteName=noteDisplay(s.string,finger);
+      b.type='button';b.className='finger-spot'+(finger===0?' open-spot':'');
+      b.style.left=(x/420*100)+'%';b.style.top=(y/620*100)+'%';
+      b.textContent=finger===0?'0':String(finger);
+      b.dataset.string=s.string;b.dataset.finger=String(finger);b.dataset.midi=String(s.open+STEP_OFFSETS[finger]);b.dataset.note=noteName;b.dataset.noteLabel=hoverLabel(s.string,finger);
+      b.setAttribute('aria-label',`${noteName} on ${s.string} string, ${finger===0?'open':ordinal(finger)+' finger'}`);
+      b.title=b.dataset.noteLabel;
+      b.addEventListener('click',()=>answer(s.string,finger));
+      b.addEventListener('mouseenter',()=>showHoverNote(b));
+      b.addEventListener('mousemove',()=>placeHoverNote(b));
+      b.addEventListener('mouseleave',hideHoverNote);
+      b.addEventListener('focus',()=>showHoverNote(b));
+      b.addEventListener('blur',hideHoverNote);
+      container.appendChild(b);spots.push(b);
+    });
+  });
+}
+function ordinal(n){return n===1?'1st':n===2?'2nd':n===3?'3rd':'4th'}
+function activeStrings(){return mode==='starter'?['D','A']:['C','G','D','A']}
+function getPool(){
+ const permitted=activeStrings();
+ const options=STRINGS.filter(s=>permitted.includes(s.string)).flatMap(s=>s.positions.map(([letter,octave,accidental,finger])=>({
+   letter,octave,accidental,finger,string:s.string,midi:s.open+STEP_OFFSETS[finger]
+ })));
+ return options.filter(o=>mode==='chromatic'||o.accidental==='');
+}
+function uniqueQuestions(){
+ const map=new Map();getPool().forEach(n=>{if(!map.has(n.midi))map.set(n.midi,n)});
+ return [...map.values()];
+}
+function validPlacements(midi){return getPool().filter(p=>p.midi===midi).sort((a,b)=>a.finger-b.finger)}
+function getQuestion(){
+ const pool=uniqueQuestions();
+ const due=missedQueue.findIndex(q=>q.due<=questionCount && pool.some(p=>p.midi===q.midi)&&!lastMidi.slice(-2).includes(q.midi));
+ if(due!==-1){const [review]=missedQueue.splice(due,1);return pool.find(p=>p.midi===review.midi)}
+ let choices=pool.filter(p=>!lastMidi.slice(-2).includes(p.midi));
+ if(!choices.length) choices=pool;
+ // Favor the open strings and notes encountered less recently, but keep every note in play.
+ return choices[Math.floor(Math.random()*choices.length)];
+}
+function renderStaff(note){
+ const group=$('renderedNote');
+ const index=(note.octave-2)*7+LAST_LETTERS.indexOf(note.letter)-4;
+ const y=172-index*12;
+ const x=310,up=y>121;
+ const ledger=[];
+ // Every additional outside-staff line, including the note line when applicable.
+ for(let pos=-2;pos>=index;pos-=2){ledger.push(`<line x1="${x-24}" y1="${172-pos*12}" x2="${x+24}" y2="${172-pos*12}" stroke="#283a33" stroke-width="1.7"/>`)}
+ for(let pos=10;pos<=index;pos+=2){ledger.push(`<line x1="${x-24}" y1="${172-pos*12}" x2="${x+24}" y2="${172-pos*12}" stroke="#283a33" stroke-width="1.7"/>`)}
+ const accidental=note.accidental?`<text class="music-accidental" x="${x-46}" y="${y+13}" text-anchor="middle">${note.accidental}</text>`:'';
+ const stem=up?`<path d="M ${x+11} ${y-2} L ${x+11} ${y-80}" stroke="#283a33" stroke-width="2.5"/>`:`<path d="M ${x-11} ${y+2} L ${x-11} ${y+80}" stroke="#283a33" stroke-width="2.5"/>`;
+ group.innerHTML=`<g class="flash-note">${ledger.join('')}${accidental}<ellipse cx="${x}" cy="${y}" rx="13" ry="9" transform="rotate(-18 ${x} ${y})" fill="#283a33"/>${stem}</g>`;
+ $('staff').setAttribute('aria-label',`Bass clef staff with a note to identify. Question ${questionCount+1}.`);
+}
+function updateStats(){
+ $('accuracy').textContent=attempts?Math.round(100*wins/attempts)+'%':'—';
+ $('streak').textContent=streak;
+ $('practiced').textContent=attempts;
+ $('questionNumber').textContent='NOTE '+String(questionCount+1).padStart(2,'0');
+ const progress=attempts%10;
+ $('roundFill').style.width=(progress*10)+'%';
+ $('roundFraction').textContent=`${progress} / 10`;
+ $('roundLabel').textContent=`Set ${Math.floor(attempts/10)+1} · Ten-note warmup`;
+}
+function clearHighlights(){
+ hideHoverNote();
+ spots.forEach(b=>{
+  b.classList.remove('correct-answer','wrong-answer','dim-answered','unavailable');
+  const available=activeStrings().includes(b.dataset.string);
+  b.disabled=!available;
+  if(!available)b.classList.add('unavailable');
+ });
+}
+function showReady(){
+ const f=$('feedback');f.className='feedback';
+ $('feedbackIcon').textContent='↗';$('feedbackTitle').textContent='Your turn.';
+ $('feedbackText').textContent=mode==='starter'?'Tap on the D or A string, at 0 (open) or the numbered finger tape.':'Tap a string at 0 (open) or where it crosses a numbered finger tape.';
+}
+function nextQuestion(){
+ if(timeout){clearTimeout(timeout);timeout=null}
+ answered=false;current=getQuestion();lastMidi.push(current.midi);if(lastMidi.length>6)lastMidi.shift();
+ renderStaff(current);clearHighlights();showReady();updateStats();
+}
+function describePlacement(p){return `${p.string} string · ${p.finger===0?'open (0)':ordinal(p.finger)+' finger'}`}
+function answer(name,finger){
+ if(answered||!current)return;
+ const s=STRINGS.find(v=>v.string===name);
+ if(!s||!activeStrings().includes(name))return;
+ const chosenMidi=s.open+STEP_OFFSETS[finger];
+ const correct=chosenMidi===current.midi;
+ answered=true;attempts++;questionCount++;
+ if(correct){wins++;streak++;bestStreak=Math.max(streak,bestStreak)}else{streak=0; if(!missedQueue.some(x=>x.midi===current.midi)) missedQueue.push({midi:current.midi,due:questionCount+3})}
+ spots.forEach(b=>{
+  b.disabled=true;
+  b.classList.add('dim-answered');
+  if(Number(b.dataset.midi)===current.midi && activeStrings().includes(b.dataset.string)){b.classList.remove('dim-answered');b.classList.add('correct-answer')}
+  if(!correct && b.dataset.string===name && Number(b.dataset.finger)===finger){b.classList.remove('dim-answered');b.classList.add('wrong-answer')}
+ });
+ const answerName=`${current.letter}${current.accidental}${current.octave}`;
+ const ways=validPlacements(current.midi);
+ const locations=ways.map(describePlacement).join(' or ');
+ const f=$('feedback');f.className='feedback answered '+(correct?'correct':'wrong');
+ $('feedbackIcon').textContent=correct?'✓':'↗';
+ $('feedbackTitle').textContent=correct?`Exactly right — ${answerName}!`:`Not quite — that was ${answerName}.`;
+ $('feedbackText').textContent=correct?`${locations}. Nicely read! Next note coming up…`:`Play ${locations}. The green spot shows the answer. Next note coming up…`;
+ updateStats();
+ if($('audioToggle').checked)playNote(current.midi);
+ timeout=setTimeout(nextQuestion,correct?1300:2900);
+}
+function setMode(value){
+ if(!['starter','all','chromatic'].includes(value))return;
+ mode=value;missedQueue=[];lastMidi=[];
+ document.querySelectorAll('.mode').forEach(el=>{const selected=el.dataset.mode===mode;el.classList.toggle('active',selected);el.setAttribute('aria-pressed',String(selected))});
+ try{localStorage.setItem('arco-mode',mode)}catch(e){}
+ nextQuestion();
+}
+function reset(){if(timeout){clearTimeout(timeout);timeout=null} attempts=0;wins=0;streak=0;bestStreak=0;questionCount=0;missedQueue=[];lastMidi=[];nextQuestion()}
+function playNote(midi){
+ try{
+  const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;
+  if(!audioContext)audioContext=new AudioCtx();
+  if(audioContext.state==='suspended')audioContext.resume();
+  const frequency=440*Math.pow(2,(midi-69)/12),now=audioContext.currentTime,dur=0.7;
+  const master=audioContext.createGain();master.gain.setValueAtTime(0.0001,now);master.gain.exponentialRampToValueAtTime(.13,now+.10);master.gain.setValueAtTime(.12,now+.42);master.gain.exponentialRampToValueAtTime(.0001,now+dur);master.connect(audioContext.destination);
+  [1,2,3,4].forEach((harmonic,i)=>{const osc=audioContext.createOscillator();const g=audioContext.createGain();osc.type=i===0?'sawtooth':'sine';osc.frequency.value=frequency*harmonic;g.gain.value=[.6,.19,.10,.05][i];osc.connect(g);g.connect(master);osc.start(now);osc.stop(now+dur+.03)})
+ }catch(e){}
+}
+function openModal(){const modal=$('modalBackdrop');modal.classList.add('open');$('closeModal').focus()}
+function closeModal(){$('modalBackdrop').classList.remove('open');$('howBtn').focus()}
+makePositions();
+document.querySelectorAll('.mode').forEach(el=>el.addEventListener('click',()=>setMode(el.dataset.mode)));
+$('helpToggle').addEventListener('click',()=>{const open=$('helpContent').classList.toggle('open');$('helpToggle').setAttribute('aria-expanded',String(open))});
+$('nextButton').addEventListener('click',()=>{if(answered)nextQuestion()});
+$('resetButton').addEventListener('click',reset);
+$('howBtn').addEventListener('click',openModal);
+$('gotIt').addEventListener('click',closeModal);
+$('closeModal').addEventListener('click',closeModal);
+$('modalBackdrop').addEventListener('click',e=>{if(e.target===$('modalBackdrop'))closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('modalBackdrop').classList.contains('open'))closeModal()});
+let savedMode='starter';try{savedMode=localStorage.getItem('arco-mode')||'starter'}catch(e){}
+setMode(savedMode);
+})();
+</script>
+</body>
+</html>
